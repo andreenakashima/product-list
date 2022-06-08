@@ -49,6 +49,14 @@
                         </div>
                     </div>
 
+                    @if ($product->cover)
+                        <div class="p-2 w-full">
+                            <img src="{{ \Illuminate\Support\Facades\Storage::url($product->cover) }}" alt="{{ $product->name }}" class="rounded w-1/4">
+
+                            <a href="{{ route('admin.product.destroyImage', $product->id) }}">Apagar imagem</a>
+                        </div>
+                    @endif
+
                     <div class="p-2 w-full">
                         <div class="relative">
                             <label for="name" class="leading-7 text-sm text-gray-600">Descrição</label>
