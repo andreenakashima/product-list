@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductStoreRequest;
 use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -23,15 +24,9 @@ class AdminProductController extends Controller
         ]);
     }
 
-    public function update(Product $product, Request $request)
+    public function update(Product $product, ProductStoreRequest $request)
     {
-        $input = $request->validate([
-            'name' => 'string|required',
-            'price' => 'numeric|required',
-            'stock' => 'string|nullable',
-            'cover' => 'file|nullable',
-            'description' => 'string|nullable',
-        ]);
+        $input = $request->validate();
 
         $input['slug'] = Str::slug($input['name']);
 
@@ -53,15 +48,9 @@ class AdminProductController extends Controller
         return view('admin.products_create');
     }
 
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request)
     {
-        $input = $request->validate([
-            'name' => 'string|required',
-            'price' => 'numeric|required',
-            'stock' => 'string|nullable',
-            'cover' => 'file|nullable',
-            'description' => 'string|nullable',
-        ]);
+        $input = $request->validate();
         $input['slug'] = Str::slug($input['name']);
 
         if(!empty($input['cover']) && $input['cover']->isValid()) {
